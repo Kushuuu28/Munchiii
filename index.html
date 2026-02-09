@@ -2,101 +2,141 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>For My Dearest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
     <style>
-        /* Dark Theme & Romantic Styling */
         body {
-            background-color: #1a0b10; /* Deep dark plum */
-            color: #ffb7c5; /* Soft cherry blossom pink */
+            background-color: #1a0b10;
+            color: #ffb7c5;
             font-family: 'Georgia', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
-            overflow: hidden; /* Keeps hearts inside the screen */
-            transition: background-color 1s ease;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
         }
 
-        h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 15px #ff4d6d;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-style: italic;
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* The Interactive Button */
-        .heart-btn {
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            z-index: 10;
-        }
-
-        .heart-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 77, 109, 0.7);
-        }
-
-        /* Floating Heart Animation */
+        /* Heart Shower Styling */
         .heart {
             position: absolute;
             color: #ff4d6d;
             font-size: 20px;
             user-select: none;
             pointer-events: none;
-            animation: floatUp 4s linear forwards;
+            animation: fall linear forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* The Big Beating Heart */
+        #big-heart {
+            display: none; /* Hidden at first */
+            cursor: pointer;
+            font-size: 100px;
+            color: #ff4d6d;
+            text-shadow: 0 0 30px #ff4d6d;
+            animation: beat 1.2s infinite;
+            position: relative;
+            z-index: 100;
+        }
+
+        #big-heart span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: white;
+            white-space: nowrap;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        /* Final Page Styling */
+        #final-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .decor {
+            font-size: 50px;
+            margin: 20px;
+        }
+
+        .message {
+            font-size: 80px;
+            letter-spacing: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d; }
+            to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4d6d; }
         }
     </style>
 </head>
 <body>
 
-    <h1>With Love.</h1>
-    <p>Every click is a heartbeat...</p>
-    
-    <button class="heart-btn" onclick="sendLove()">Send Hearts</button>
+    <div id="big-heart" onclick="showSurprise()">
+        ❤️
+        <span>Click me</span>
+    </div>
+
+    <div id="final-page">
+        <div class="decor">🌹 🧸 🌹 🧸 🌹</div>
+        <div class="message">..Hi..</div>
+        <div class="decor">🌹 🧸 🌹 🧸 🌹</div>
+    </div>
 
     <script>
-        function sendLove() {
-            // Create 5 hearts per click
-            for (let i = 0; i < 5; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤️';
-                
-                // Randomize position
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = '100vh';
-                
-                // Randomize size and duration
-                const duration = Math.random() * 2 + 3;
-                heart.style.animationDuration = duration + 's';
-                heart.style.opacity = Math.random();
+        // 1. Automatic Heart Shower
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
 
-                document.body.appendChild(heart);
+        // Start showering immediately
+        setInterval(createHeart, 300);
 
-                // Remove heart from DOM after animation ends to save memory
-                setTimeout(() => {
-                    heart.remove();
-                }, duration * 1000);
-            }
+        // 2. Show the Big Heart after 5 seconds
+        setTimeout(() => {
+            document.getElementById('big-heart').style.display = 'block';
+        }, 5000);
+
+        // 3. Switch to the final "Hi" page
+        function showSurprise() {
+            document.getElementById('big-heart').style.display = 'none';
+            document.getElementById('final-page').style.display = 'flex';
+            
+            // Optional: Increase the rose/teddy shower on the final page
+            setInterval(() => {
+                const item = document.createElement('div');
+                item.classList.add('heart');
+                item.innerHTML = Math.random() > 0.5 ? '🌹' : '🧸';
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.animationDuration = '4s';
+                document.body.appendChild(item);
+            }, 200);
         }
     </script>
 </body>
