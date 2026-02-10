@@ -4,286 +4,275 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Everything</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f0508;
             --primary-love: #ff4d6d;
             --soft-pink: #ffb7c5;
-            --accent-glow: rgba(255, 77, 109, 0.6);
-            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glow: 0 0 20px rgba(255, 77, 109, 0.5);
         }
 
-        /* Essential for mobile to prevent accidental zooming/scrolling */
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background-color: white;
+            overflow: hidden; background-color: #000000;
             display: flex; justify-content: center; align-items: center;
             font-family: 'Quicksand', sans-serif;
             transition: background-color 2s ease;
-            touch-action: manipulation;
+            perspective: 1000px;
         }
 
-        /* --- STAR EXPAND --- */
-        .star-expand {
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: star-zoom 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards; 
-            background: #000; position: absolute; z-index: 1000;
-        }
-        @keyframes star-zoom { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(300); opacity: 0; } }
-
-        /* --- HEART SHOWER --- */
-        .heart-particle { position: absolute; top: -50px; pointer-events: none; animation: fall linear forwards; z-index: 100; }
-        @keyframes fall { to { transform: translateY(115vh) rotate(360deg); } }
-
-        /* --- SECTIONS --- */
-        .romantic-body { background: radial-gradient(circle at center, #2d0b16 0%, #0f0508 100%); }
+        .romantic-body { background: radial-gradient(circle at center, #2d0b16 0%, #0f0508 100%) !important; }
+        
         .section { 
             display: none; opacity: 0; text-align: center; z-index: 10; 
-            width: 90%; max-width: 400px; /* Limits width on big screens, perfect for mobile */
-            position: absolute; transition: opacity 0.8s ease; 
+            width: 85%; max-width: 400px;
+            position: absolute; 
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+            transform: scale(0.9) translateY(20px);
         }
-        
+
+        .section-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
+        .white-text { color: #ffffff; }
+
         .fancy-title { 
             font-family: 'Dancing Script', cursive; 
             color: var(--soft-pink); 
-            text-shadow: 0 0 15px var(--primary-love);
-            font-size: 2.8rem; /* Scaled down for mobile */
-            margin-bottom: 20px;
+            text-shadow: 0 0 25px var(--primary-love);
+            font-size: 3rem; margin-bottom: 25px;
+        }
+
+        /* Improved Text Spacing */
+        #gift-text { 
+            font-size: 1.6rem; min-height: 80px; letter-spacing: 2.5px; 
+            line-height: 1.8; margin-bottom: 35px; font-weight: 400;
         }
 
         .btn { 
-            padding: 15px 30px; font-size: 1rem; border: none; border-radius: 30px; 
-            cursor: pointer; transition: 0.3s; font-weight: 500;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
-            -webkit-tap-highlight-color: transparent; /* Removes blue flash on mobile tap */
+            padding: 16px 35px; font-size: 1.1rem; border: none; border-radius: 50px; 
+            cursor: pointer; transition: 0.4s; font-weight: 600;
+            box-shadow: var(--glow); position: relative; overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
-        #yes-btn { background: var(--primary-love); color: white; }
-        #no-btn { background: rgba(255, 255, 255, 0.1); color: var(--soft-pink); border: 1px solid var(--soft-pink); backdrop-filter: blur(5px); }
+        .btn:active { transform: scale(0.95); }
 
-        /* --- SCRAPBOARD (MOBILE OPTIMIZED) --- */
-        #scrapboard-screen { 
-            width: 100vw; height: 100vh; position: absolute; top: 0; left: 0;
-            display: none; background: var(--bg-color); 
-            padding: 20px 10px; box-sizing: border-box; z-index: 20;
-            overflow-y: auto; /* Allows scrolling on mobile */
-            flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 20px;
-        }
+        #yes-btn { background: var(--primary-love); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        #no-btn { background: var(--glass); color: var(--soft-pink); border: 1px solid var(--soft-pink); backdrop-filter: blur(10px); }
 
-        .memory-card { 
-            background: white; padding: 8px 8px 30px 8px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
-            animation: slide-up 0.8s forwards; opacity: 0; border-radius: 2px;
-            width: 40%; /* Two photos per row on mobile */
-            min-width: 140px;
+        #gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        .gift-box { 
+            background: var(--glass); padding: 30px 10px; border-radius: 24px; 
+            border: 1px solid rgba(255,183,197,0.15); cursor: pointer;
+            transition: 0.4s; backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
-        .memory-card img { width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; display: block; }
-        
-        .floating-text { 
-            font-family: 'Dancing Script', cursive;
-            color: var(--soft-pink); font-size: 1.5rem; 
-            text-shadow: 2px 2px 10px rgba(255, 77, 109, 0.8); 
-            animation: slide-up 1s ease forwards; opacity: 0; 
-            width: 100%; text-align: center;
-        }
+        .gift-box:hover { border-color: var(--soft-pink); transform: translateY(-5px); }
+        .gift-icon { font-size: 40px; display: block; filter: drop-shadow(0 0 10px var(--primary-love)); }
+        .gift-label { font-size: 0.85rem; color: var(--soft-pink); display: block; margin-top: 12px; font-weight: 600; letter-spacing: 1.5px; }
 
-        @keyframes slide-up { 
-            from { transform: translateY(40px) rotate(-5deg); opacity: 0; } 
-            to { transform: translateY(0) rotate(var(--r)); opacity: 1; } 
+        /* Quiz Buttons Styles */
+        .quiz-option { 
+            width: 80%; margin: 12px auto; display: block; 
+            background: var(--glass); color: white; border: 1px solid var(--soft-pink);
+            padding: 12px; border-radius: 15px; font-size: 1.5rem; cursor: pointer;
+            transition: 0.3s;
         }
+        .quiz-option:active { transform: scale(0.9); background: var(--primary-love); }
 
-        /* --- VIDEO (MOBILE CINEMATIC) --- */
-        #video-container { 
-            display:none; width: 100vw; height: 100vh; background: black; 
-            position: fixed; top: 0; left: 0; z-index: 5000; 
-            justify-content: center; align-items: center; opacity: 0; transition: opacity 1s; 
-        }
-        video { width: 95%; height: auto; border-radius: 8px; }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 280px; margin: 25px auto; }
+        .ttt-cell { width: 85px; height: 85px; background: var(--glass); border: 1px solid rgba(255, 183, 197, 0.3); border-radius: 18px; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; color: white; backdrop-filter: blur(5px); transition: 0.3s; }
 
-        .continue-btn {
-            position: sticky; bottom: 20px; z-index: 100;
-            background: white !important; color: var(--primary-love) !important;
-            margin-top: 20px;
-        }
+        #scrapboard-screen { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; display: none; background: var(--bg-color); z-index: 200; overflow-y: auto; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 25px; padding: 70px 15px; }
+        .memory-card { background: #fff; padding: 12px 12px 40px 12px; border-radius: 3px; width: 42%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1); opacity: 0; transform: translateY(100px) rotate(20deg); }
+        .memory-card.reveal { opacity: 1; transform: translateY(0) rotate(var(--r)); }
+        .memory-card img { width: 100%; height: auto; display: block; filter: sepia(0.2); }
 
-        .cringe-body { background-color: #fffafa; color: #333; }
+        #video-container { display:none; width: 100vw; height: 100vh; background: black; position: fixed; top: 0; left: 0; z-index: 5000; flex-direction: column; justify-content: center; align-items: center; }
+        video { width: 92%; border-radius: 15px; }
+
+        .heart-particle { position: absolute; top: -50px; pointer-events: none; animation: fall linear forwards; z-index: 5; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; } }
     </style>
 </head>
-<body class="cringe-body">
+<body>
 
-    <div id="star" style="display:none;"></div>
+    <audio id="bg-music" loop preload="auto"><source src="music.mp3" type="audio/mpeg"></audio>
     <div id="shower-layer"></div>
 
-    <div id="intro-1" class="section">
-        <h1 style="font-size: 2rem;">Hi Baby</h1>
-        <button class="btn" onclick="startJourney()">CLICK ME</button>
-    </div>
-    <div id="intro-2" class="section" style="background:#000; color:#fff; width:100vw; height:100vh;">
-        <h1>Happy 6 months love... <3</h1>
-    </div>
-    <div id="special-website" class="section">
-        <h1>This was my special website for you <3</h1>
-    </div>
-    <div id="just-kidding" class="section">
-        <h1 style="color:#999; font-family: sans-serif;">Just kidding.</h1>
-    </div>
-
-    <div id="heart-container" class="section" onclick="revealProposal()">
-        <div style="font-size:80px; cursor:pointer;">❤️</div>
-        <p style="color:var(--soft-pink); margin-top: 20px;">Touch your heart...</p>
+    <div id="intro-1" class="section section-active">
+        <h1 class="white-text" style="font-size: 2.5rem; font-weight: 400; letter-spacing: 3px;">Hi Baby</h1>
+        <button class="btn" id="yes-btn" onclick="show('choice-page')">START JOURNEY</button>
     </div>
 
     <div id="choice-page" class="section">
         <h1 class="fancy-title">Will you be my love?</h1>
-        <div class="btn-group" style="display:flex; flex-direction:column; gap:15px; align-items:center; margin-top:20px;">
-            <button id="yes-btn" class="btn" style="width: 200px;" onclick="goToForever()">Yes, Forever</button>
-            <button id="no-btn" class="btn" style="width: 200px;" onclick="handleReally()">No</button>
-        </div>
+        <button id="yes-btn" class="btn" style="width: 220px; margin-bottom: 20px;" onclick="show('forever-page')">Yes, Forever</button><br>
+        <button id="no-btn" class="btn" style="width: 220px;" onclick="show('really-page')">No</button>
     </div>
 
     <div id="really-page" class="section">
         <h1 class="fancy-title">Really?? 🤨</h1>
-        <button class="btn" id="yes-btn" onclick="handleNoChoice()">Yes...</button>
+        <button class="btn" id="yes-btn" onclick="show('no-choice-page')">Yes...</button>
     </div>
 
     <div id="no-choice-page" class="section">
-        <h1 class="fancy-title" style="font-size: 2.2rem;">You don't have a choice baby. 🙄❤️</h1>
+        <h1 class="fancy-title">You don't have a choice baby. 🙄❤️</h1>
         <button class="btn" id="no-btn" onclick="show('choice-page')">Okay fine...</button>
     </div>
 
     <div id="forever-page" class="section">
         <h1 class="fancy-title">Forever?</h1>
-        <button class="btn" id="yes-btn" onclick="finalSuccess()">Yes, I promise</button>
+        <button class="btn" id="yes-btn" style="width: 220px;" onclick="finalSuccess()">Yes, I promise</button>
     </div>
 
     <div id="success-screen" class="section">
-        <img src="celebration.gif" style="width:80%; max-width:250px; border-radius:20px;">
-        <h1 class="fancy-title" style="font-size: 2.5rem; margin-top: 20px;">I knew it!</h1>
+        <h1 class="fancy-title" style="font-size: 4rem;">I knew it!</h1>
     </div>
 
-    <div id="final-message-screen" class="section">
-        <h1 class="fancy-title" style="font-size: 2rem;">Now that you're stuck with me forever...</h1>
+    <div id="gift-page" class="section">
+        <h1 class="fancy-title" id="gift-text"></h1>
+        <div id="gift-grid">
+            <div class="gift-box" onclick="show('quiz-screen')">
+                <span class="gift-icon">💋</span><span class="gift-label">QUIZ</span>
+            </div>
+            <div class="gift-box" onclick="resetTTT()">
+                <span class="gift-icon">🕹️</span><span class="gift-label">MINIGAME</span>
+            </div>
+            <div class="gift-box" onclick="triggerMemoryLane()">
+                <span class="gift-icon">🎞️</span><span class="gift-label">MEMORIES</span>
+            </div>
+            <div class="gift-box" onclick="triggerVideoTease()">
+                <span class="gift-icon">✨</span><span class="gift-label">SURPRISE</span>
+            </div>
+        </div>
     </div>
 
+    <div id="quiz-screen" class="section">
+        <h1 class="fancy-title" style="font-size: 2rem;">Who loves Kushal the most?</h1>
+        <button class="quiz-option" style="font-family: 'Dancing Script';" onclick="show('mwuah-screen')">Me</button>
+        <button class="quiz-option" style="font-family: 'Quicksand';" onclick="show('mwuah-screen')">Me</button>
+        <button class="quiz-option" style="font-family: serif; font-style: italic;" onclick="show('mwuah-screen')">Me</button>
+        <button class="quiz-option" style="font-family: cursive;" onclick="show('mwuah-screen')">Me</button>
+    </div>
+
+    <div id="mwuah-screen" class="section">
+        <h1 class="fancy-title">I knew it!</h1>
+        <h2 class="white-text" style="font-family: 'Dancing Script'; font-size: 2.5rem;">Mwuahhhh</h2>
+        <p class="white-text" style="font-size: 1.2rem; margin-top: 20px;">I love you the most too ❤️</p>
+        <button class="btn" id="yes-btn" style="margin-top: 30px;" onclick="show('gift-page')">Back to Gifts</button>
+    </div>
+
+    <div id="ttt-page" class="section">
+        <h1 class="fancy-title" style="font-size: 2.2rem;">Beat me to win!</h1>
+        <div class="ttt-grid">
+            <div class="ttt-cell" onclick="makeMove(0)"></div><div class="ttt-cell" onclick="makeMove(1)"></div><div class="ttt-cell" onclick="makeMove(2)"></div>
+            <div class="ttt-cell" onclick="makeMove(3)"></div><div class="ttt-cell" onclick="makeMove(4)"></div><div class="ttt-cell" onclick="makeMove(5)"></div>
+            <div class="ttt-cell" onclick="makeMove(6)"></div><div class="ttt-cell" onclick="makeMove(7)"></div><div class="ttt-cell" onclick="makeMove(8)"></div>
+        </div>
+        <p id="ttt-message" style="color: var(--soft-pink); font-size: 1.4rem; min-height: 70px; font-weight: 600;"></p>
+    </div>
+
+    <div id="win-image-page" class="section">
+        <div style="background: white; padding: 12px; border-radius: 15px; box-shadow: 0 0 40px var(--primary-love);">
+            <img src="win-image.png" style="width:100%; border-radius:5px;" onerror="this.src='https://via.placeholder.com/300x400?text=Forever+Yours'">
+        </div>
+        <button class="btn" id="yes-btn" style="margin-top:30px;" onclick="show('gift-page')">BACK TO GIFTS</button>
+    </div>
+
+    <div id="final-message-screen" class="section"><h1 class="fancy-title">Now that you're stuck with me forever...</h1></div>
     <div id="scrapboard-screen"></div>
 
-    <div id="fancy-love-screen" class="section">
-        <h1 class="fancy-title" style="font-size: 4rem;">I Love You</h1>
-        <p style="color:var(--soft-pink); font-style: italic;">To the moon and back.</p>
-        <button class="btn" style="margin-top:30px; background:var(--gold); color:black;" onclick="show('watch-page')">Next ❤️</button>
-    </div>
-
-    <div id="watch-page" class="section">
-        <h1 class="fancy-title">A video from me</h1>
-        <button class="btn" id="yes-btn" onclick="playVideo()">Watch Now</button>
-    </div>
-
+    <div id="video-teaser" class="section"><h1 class="fancy-title">I made a video just for you...</h1></div>
     <div id="video-container">
         <video id="myVideo" controls playsinline><source src="your-video.mp4" type="video/mp4"></video>
+        <button class="btn" style="margin-top:25px; background:white; color:black;" onclick="closeVideo()">CLOSE SURPRISE</button>
     </div>
 
     <script>
-        const myImages = ["image1.jpeg", "image2.jpeg", "image3.jpeg", "image4.jpeg", "image5.jpeg", "image6.jpeg"]; 
-        const myTexts = ["My Munchi", "My Baby", "My Love", "My Everything", "My Darling", "My Wife", "My Babygirl", "Nan Hendathi"];
+        const audio = document.getElementById('bg-music');
 
         function show(id) {
-            document.querySelectorAll('.section, #scrapboard-screen, #video-container').forEach(s => { 
-                s.style.display = 'none'; 
-                s.style.opacity = '0'; 
+            const sections = document.querySelectorAll('.section, #scrapboard-screen, #video-container');
+            sections.forEach(s => { 
+                s.classList.remove('section-active');
+                setTimeout(() => { if(!s.classList.contains('section-active')) s.style.display = 'none'; }, 600);
             });
             const el = document.getElementById(id);
-            el.style.display = (id === 'scrapboard-screen') ? 'flex' : 'flex';
-            el.style.flexDirection = (id === 'scrapboard-screen') ? 'row' : 'column';
-            el.style.justifyContent = (id === 'scrapboard-screen') ? 'center' : 'center';
-            el.style.alignItems = 'center';
-            setTimeout(() => { el.style.opacity = '1'; }, 50);
+            el.style.display = (id === 'scrapboard-screen' || id === 'video-container') ? 'flex' : 'block';
+            setTimeout(() => { el.classList.add('section-active'); }, 50);
         }
 
-        window.onload = () => show('intro-1');
-
-        function startJourney() {
-            const star = document.getElementById('star');
-            star.style.display = 'block'; star.classList.add('star-expand');
-            setTimeout(() => {
-                star.style.display = 'none';
-                show('intro-2');
-                setTimeout(() => {
-                    show('special-website');
-                    setTimeout(() => {
-                        document.body.classList.remove('cringe-body');
-                        show('just-kidding');
-                        setTimeout(() => {
-                            startHeartShower(); 
-                            document.body.className = 'romantic-body';
-                            show('heart-container');
-                        }, 2500);
-                    }, 3000);
-                }, 3000);
-            }, 1000);
+        function finalSuccess() {
+            document.body.classList.add('romantic-body');
+            audio.play().catch(() => {});
+            startHeartShower();
+            show('success-screen');
+            setTimeout(() => { show('gift-page'); animateGiftText(); }, 2500);
         }
 
-        function revealProposal() { show('choice-page'); }
-        function handleReally() { show('really-page'); }
-        function handleNoChoice() { show('no-choice-page'); }
-        function goToForever() { show('forever-page'); }
-
-        function startHeartShower() {
-            setInterval(() => {
-                const h = document.createElement('div');
-                h.className = 'heart-particle';
-                h.innerHTML = ['❤️','💖','✨','💕'][Math.floor(Math.random()*4)];
-                h.style.left = Math.random() * 100 + 'vw';
-                h.style.fontSize = Math.random() * 15 + 15 + 'px';
-                h.style.animationDuration = Math.random() * 2 + 3 + 's';
-                document.getElementById('shower-layer').appendChild(h);
-                setTimeout(() => h.remove(), 5000);
-            }, 300); // Slower generation for mobile performance
+        function animateGiftText() {
+            const text = "I made some things for you...";
+            const el = document.getElementById('gift-text');
+            el.innerText = ""; let i = 0;
+            const interval = setInterval(() => { el.innerText += text[i]; i++; if (i >= text.length) clearInterval(interval); }, 65);
         }
 
-        function finalSuccess() { 
-            show('success-screen'); 
-            setTimeout(() => {
-                show('final-message-screen');
-                setTimeout(startScrapboard, 3500);
-            }, 4000);
+        let b = ["","","","","","","","",""];
+        let active = true;
+        function resetTTT() { b = ["","","","","","","","",""]; active = true; document.querySelectorAll('.ttt-cell').forEach(c => c.innerText = ""); document.getElementById('ttt-message').innerText = ""; show('ttt-page'); }
+        
+        function makeMove(i) {
+            if(b[i]==="" && active) {
+                b[i]="❤️"; document.getElementsByClassName('ttt-cell')[i].innerText="❤️";
+                if(checkWin("❤️")) {
+                    active = false;
+                    const m = document.getElementById('ttt-message');
+                    m.innerText = "You won...";
+                    setTimeout(() => { m.innerHTML = "You won...<br>My Heart ❤️"; setTimeout(() => show('win-image-page'), 2000); }, 2000);
+                } else {
+                    let e = b.indexOf(""); if(e!==-1) { active = false; setTimeout(() => { b[e]="X"; document.getElementsByClassName('ttt-cell')[e].innerText="X"; active = true; }, 400); }
+                }
+            }
         }
+        function checkWin(p) { const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return w.some(pattern => pattern.every(idx => b[idx] === p)); }
 
+        function triggerMemoryLane() { show('final-message-screen'); setTimeout(startScrapboard, 2500); }
         function startScrapboard() {
-            const board = document.getElementById('scrapboard-screen');
-            board.style.display = 'flex'; board.style.opacity = '1';
-            let items = [...myImages.map(s => ({type:'img', c:s})), ...myTexts.map(t => ({type:'txt', c:t}))];
-            items.sort(() => Math.random() - 0.5);
-
-            items.forEach((item, i) => {
-                setTimeout(() => {
-                    const div = document.createElement('div');
-                    const rot = (Math.random() * 10 - 5);
-                    div.style.setProperty('--r', rot + 'deg');
-                    if(item.type === 'img') {
-                        div.className = 'memory-card';
-                        div.innerHTML = `<img src="${item.c}" onerror="this.src='https://via.placeholder.com/150x200?text=Us'">`;
-                    } else {
-                        div.className = 'floating-text';
-                        div.innerHTML = item.c;
-                    }
-                    board.appendChild(div);
-                }, i * 400);
+            const sb = document.getElementById('scrapboard-screen');
+            sb.innerHTML = ""; sb.style.display = 'flex'; sb.classList.add('section-active');
+            const imgs = ["image1.jpeg", "image2.jpeg", "image3.jpeg", "image4.jpeg", "image5.jpeg", "image6.jpeg"];
+            imgs.forEach((img, i) => { 
+                setTimeout(() => { 
+                    const d = document.createElement('div'); 
+                    d.className = 'memory-card'; 
+                    d.style.setProperty('--r', (Math.random()*16-8) + 'deg'); 
+                    d.innerHTML = `<img src="${img}" onerror="this.src='https://via.placeholder.com/200x250?text=Memory'">`; 
+                    sb.appendChild(d); 
+                    setTimeout(() => d.classList.add('reveal'), 50); 
+                }, i * 450); 
             });
-
-            setTimeout(() => {
-                const btn = document.createElement('button');
-                btn.className = 'btn continue-btn'; btn.innerHTML = "Continue ❤️";
-                btn.onclick = () => show('fancy-love-screen');
-                board.appendChild(btn);
-            }, (items.length * 400) + 1000);
+            setTimeout(() => { 
+                const btn = document.createElement('button'); 
+                btn.className = 'btn'; btn.innerText = "BACK TO GIFTS ❤️"; 
+                btn.style.cssText = "margin: 50px auto; display: block; background: white; color: var(--primary-love); z-index: 300;"; 
+                btn.onclick = () => show('gift-page'); 
+                sb.appendChild(btn); 
+            }, (imgs.length * 450) + 1200);
         }
 
-        function playVideo() {
-            const container = document.getElementById('video-container');
-            container.style.display = 'flex';
-            setTimeout(() => { container.style.opacity = '1'; }, 100);
-            const v = document.getElementById('myVideo');
-            v.play();
+        function triggerVideoTease() { show('video-teaser'); setTimeout(() => { audio.pause(); show('video-container'); document.getElementById('myVideo').play(); }, 3000); }
+        function closeVideo() { document.getElementById('myVideo').pause(); audio.play(); show('gift-page'); }
+
+        function startHeartShower() { 
+            setInterval(() => { 
+                const h = document.createElement('div'); 
+                h.className = 'heart-particle'; h.innerText = ['❤️','💖','💕','✨'][Math.floor(Math.random()*4)]; 
+                h.style.left = Math.random()*100+'vw'; 
+                h.style.animationDuration = Math.random()*2+3+'s'; 
+                document.getElementById('shower-layer').appendChild(h); 
+                setTimeout(() => h.remove(), 5000); 
+            }, 350); 
         }
     </script>
 </body>
