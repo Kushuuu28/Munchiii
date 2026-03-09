@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Everything</title>
+    <title>Kushal ❤️ You</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,263 +16,261 @@
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background-color: #000000;
+            overflow: hidden; background-color: #000;
             display: flex; justify-content: center; align-items: center;
-            font-family: 'Quicksand', sans-serif;
-            transition: background-color 2s ease;
-            perspective: 1000px;
+            font-family: 'Quicksand', sans-serif; color: white;
+            transition: background 2s ease; touch-action: manipulation;
         }
 
-        .romantic-body { background: radial-gradient(circle at center, #2d0b16 0%, #0f0508 100%) !important; }
+        .romantic-body { background: radial-gradient(circle at center, #2d0b16 0%, #000 100%) !important; }
         
         .section { 
             display: none; opacity: 0; text-align: center; z-index: 10; 
-            width: 85%; max-width: 400px;
-            position: absolute; 
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
-            transform: scale(0.9) translateY(20px);
+            width: 92%; max-width: 400px; position: absolute; 
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            transform: scale(0.9); max-height: 90vh; overflow-y: auto; padding-bottom: 20px;
         }
 
-        .section-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
-        .white-text { color: #ffffff; }
+        .section-active { display: block; opacity: 1; transform: scale(1); }
 
         .fancy-title { 
-            font-family: 'Dancing Script', cursive; 
-            color: var(--soft-pink); 
-            text-shadow: 0 0 25px var(--primary-love);
-            font-size: 3rem; margin-bottom: 25px;
-        }
-
-        /* Improved Text Spacing */
-        #gift-text { 
-            font-size: 1.6rem; min-height: 80px; letter-spacing: 2.5px; 
-            line-height: 1.8; margin-bottom: 35px; font-weight: 400;
+            font-family: 'Dancing Script', cursive; color: var(--soft-pink); 
+            text-shadow: 0 0 15px var(--primary-love); font-size: 2.3rem; margin-bottom: 10px;
         }
 
         .btn { 
-            padding: 16px 35px; font-size: 1.1rem; border: none; border-radius: 50px; 
-            cursor: pointer; transition: 0.4s; font-weight: 600;
-            box-shadow: var(--glow); position: relative; overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
+            padding: 14px 24px; font-size: 0.9rem; border: none; border-radius: 50px; 
+            cursor: pointer; transition: 0.2s; font-weight: 700;
+            box-shadow: var(--glow); margin: 6px; background: var(--primary-love); color: white;
+            -webkit-tap-highlight-color: transparent; text-transform: uppercase; letter-spacing: 1px;
         }
-        .btn:active { transform: scale(0.95); }
 
-        #yes-btn { background: var(--primary-love); color: white; border: 1px solid rgba(255,255,255,0.2); }
-        #no-btn { background: var(--glass); color: var(--soft-pink); border: 1px solid var(--soft-pink); backdrop-filter: blur(10px); }
+        .btn-outline { background: var(--glass); border: 1px solid var(--soft-pink); color: var(--soft-pink); }
 
-        #gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        /* Dashboard */
+        #gift-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px; }
         .gift-box { 
-            background: var(--glass); padding: 30px 10px; border-radius: 24px; 
-            border: 1px solid rgba(255,183,197,0.15); cursor: pointer;
-            transition: 0.4s; backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            background: var(--glass); padding: 15px 2px; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            font-size: 0.65rem; font-weight: 600; color: var(--soft-pink);
         }
-        .gift-box:hover { border-color: var(--soft-pink); transform: translateY(-5px); }
-        .gift-icon { font-size: 40px; display: block; filter: drop-shadow(0 0 10px var(--primary-love)); }
-        .gift-label { font-size: 0.85rem; color: var(--soft-pink); display: block; margin-top: 12px; font-weight: 600; letter-spacing: 1.5px; }
 
-        /* Quiz Buttons Styles */
-        .quiz-option { 
-            width: 80%; margin: 12px auto; display: block; 
-            background: var(--glass); color: white; border: 1px solid var(--soft-pink);
-            padding: 12px; border-radius: 15px; font-size: 1.5rem; cursor: pointer;
-            transition: 0.3s;
+        /* Stats Card */
+        .stats-container { background: var(--glass); border-radius: 20px; padding: 15px; margin: 10px; border: 1px solid var(--primary-love); }
+        .stat-row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;}
+
+        /* Slot Machine */
+        #slot-machine { font-size: 2.5rem; background: #000; padding: 10px; border-radius: 15px; border: 2px gold solid; margin: 15px 0; }
+
+        /* TTT Fixed */
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 250px; margin: 15px auto; }
+        .ttt-cell { width: 75px; height: 75px; background: var(--glass); border: 2px solid var(--soft-pink); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
+
+        /* Gallery Styles */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 10px;
+            max-height: 50vh;
+            overflow-y: auto;
+            border-radius: 15px;
         }
-        .quiz-option:active { transform: scale(0.9); background: var(--primary-love); }
-
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 280px; margin: 25px auto; }
-        .ttt-cell { width: 85px; height: 85px; background: var(--glass); border: 1px solid rgba(255, 183, 197, 0.3); border-radius: 18px; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; color: white; backdrop-filter: blur(5px); transition: 0.3s; }
-
-        #scrapboard-screen { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; display: none; background: var(--bg-color); z-index: 200; overflow-y: auto; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 25px; padding: 70px 15px; }
-        .memory-card { background: #fff; padding: 12px 12px 40px 12px; border-radius: 3px; width: 42%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1); opacity: 0; transform: translateY(100px) rotate(20deg); }
-        .memory-card.reveal { opacity: 1; transform: translateY(0) rotate(var(--r)); }
-        .memory-card img { width: 100%; height: auto; display: block; filter: sepia(0.2); }
-
-        #video-container { display:none; width: 100vw; height: 100vh; background: black; position: fixed; top: 0; left: 0; z-index: 5000; flex-direction: column; justify-content: center; align-items: center; }
-        video { width: 92%; border-radius: 15px; }
+        .gallery-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--soft-pink);
+        }
 
         .heart-particle { position: absolute; top: -50px; pointer-events: none; animation: fall linear forwards; z-index: 5; }
-        @keyframes fall { 0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; } }
+        @keyframes fall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop preload="auto"><source src="music.mp3" type="audio/mpeg"></audio>
     <div id="shower-layer"></div>
 
-    <div id="intro-1" class="section section-active">
-        <h1 class="white-text" style="font-size: 2.5rem; font-weight: 400; letter-spacing: 3px;">Hi Baby</h1>
-        <button class="btn" id="yes-btn" onclick="show('choice-page')">START JOURNEY</button>
+    <div id="intro" class="section section-active">
+        <h1 class="fancy-title">Locked for Baby</h1>
+        <p style="font-size: 0.9rem;">Authentication: Heart Required ❤️</p>
+        <button class="btn" onclick="show('choice')">Unlock</button>
     </div>
 
-    <div id="choice-page" class="section">
-        <h1 class="fancy-title">Will you be my love?</h1>
-        <button id="yes-btn" class="btn" style="width: 220px; margin-bottom: 20px;" onclick="show('forever-page')">Yes, Forever</button><br>
-        <button id="no-btn" class="btn" style="width: 220px;" onclick="show('really-page')">No</button>
+    <div id="choice" class="section">
+        <h1 class="fancy-title">Will you be mine?</h1>
+        <button class="btn" style="width: 200px;" onclick="celebrate()">YES, FOREVER</button><br>
+        <button id="no-btn" class="btn btn-outline" style="width: 150px;" onmouseover="dodgeNo()" onclick="dodgeNo()">No</button>
     </div>
 
-    <div id="really-page" class="section">
-        <h1 class="fancy-title">Really?? 🤨</h1>
-        <button class="btn" id="yes-btn" onclick="show('no-choice-page')">Yes...</button>
-    </div>
+    <div id="hub" class="section">
+        <h1 class="fancy-title">Heart Dashboard</h1>
+        
+        <div class="stats-container">
+            <div class="stat-row"><span>Love Level:</span> <span style="color:var(--primary-love)">MAX (∞)</span></div>
+            <div class="stat-row"><span>Hugs Owed:</span> <span>99,999+</span></div>
+            <div class="stat-row"><span>Mood:</span> <span>Thinking of You</span></div>
+        </div>
 
-    <div id="no-choice-page" class="section">
-        <h1 class="fancy-title">You don't have a choice baby. 🙄❤️</h1>
-        <button class="btn" id="no-btn" onclick="show('choice-page')">Okay fine...</button>
-    </div>
-
-    <div id="forever-page" class="section">
-        <h1 class="fancy-title">Forever?</h1>
-        <button class="btn" id="yes-btn" style="width: 220px;" onclick="finalSuccess()">Yes, I promise</button>
-    </div>
-
-    <div id="success-screen" class="section">
-        <h1 class="fancy-title" style="font-size: 4rem;">I knew it!</h1>
-    </div>
-
-    <div id="gift-page" class="section">
-        <h1 class="fancy-title" id="gift-text"></h1>
         <div id="gift-grid">
-            <div class="gift-box" onclick="show('quiz-screen')">
-                <span class="gift-icon">💋</span><span class="gift-label">QUIZ</span>
-            </div>
-            <div class="gift-box" onclick="resetTTT()">
-                <span class="gift-icon">🕹️</span><span class="gift-label">MINIGAME</span>
-            </div>
-            <div class="gift-box" onclick="triggerMemoryLane()">
-                <span class="gift-icon">🎞️</span><span class="gift-label">MEMORIES</span>
-            </div>
-            <div class="gift-box" onclick="triggerVideoTease()">
-                <span class="gift-icon">✨</span><span class="gift-label">SURPRISE</span>
-            </div>
+            <div class="gift-box" onclick="show('slot')">🎰<br>COMPLIMENT</div>
+            <div class="gift-box" onclick="show('challenge')">🎯<br>CHALLENGE</div>
+            <div class="gift-box" onclick="show('coupons')">🎫<br>COUPONS</div>
+            <div class="gift-box" onclick="resetTTT()">🎮<br>TIC-TAC-TOE</div>
+            <div class="gift-box" onclick="show('gallery')">📸<br>GALLERY</div>
+            <div class="gift-box" onclick="alert('It\'s a secret! 😁')">💬<br>SECRET</div>
         </div>
+        <p style="font-size:0.7rem; opacity:0.6;">v3.0.0 - Personalized for My Love</p>
     </div>
 
-    <div id="quiz-screen" class="section">
-        <h1 class="fancy-title" style="font-size: 2rem;">Who loves Kushal the most?</h1>
-        <button class="quiz-option" style="font-family: 'Dancing Script';" onclick="show('mwuah-screen')">Me</button>
-        <button class="quiz-option" style="font-family: 'Quicksand';" onclick="show('mwuah-screen')">Me</button>
-        <button class="quiz-option" style="font-family: serif; font-style: italic;" onclick="show('mwuah-screen')">Me</button>
-        <button class="quiz-option" style="font-family: cursive;" onclick="show('mwuah-screen')">Me</button>
+    <div id="slot" class="section">
+        <h1 class="fancy-title">Love Slots</h1>
+        <div id="slot-machine">❤️ | 💖 | 💕</div>
+        <p id="slot-msg" style="min-height: 40px; color: var(--soft-pink);"></p>
+        <button class="btn" onclick="spinSlots()">SPIN FOR LOVE</button>
+        <button class="btn btn-outline" onclick="show('hub')">Back</button>
     </div>
 
-    <div id="mwuah-screen" class="section">
-        <h1 class="fancy-title">I knew it!</h1>
-        <h2 class="white-text" style="font-family: 'Dancing Script'; font-size: 2.5rem;">Mwuahhhh</h2>
-        <p class="white-text" style="font-size: 1.2rem; margin-top: 20px;">I love you the most too ❤️</p>
-        <button class="btn" id="yes-btn" style="margin-top: 30px;" onclick="show('gift-page')">Back to Gifts</button>
+    <div id="challenge" class="section">
+        <h1 class="fancy-title">Daily Task</h1>
+        <div style="background:var(--glass); padding:20px; border-radius:20px; border: 1px dashed white;">
+            <p id="challenge-text">Loading daily mission...</p>
+        </div>
+        <button class="btn" onclick="newChallenge()">Get New Task</button>
+        <button class="btn btn-outline" onclick="show('hub')">Back</button>
     </div>
 
-    <div id="ttt-page" class="section">
-        <h1 class="fancy-title" style="font-size: 2.2rem;">Beat me to win!</h1>
+    <div id="ttt" class="section">
+        <h1 class="fancy-title">Beat Me!</h1>
+        <p id="ttt-status">Your turn (❤️)</p>
         <div class="ttt-grid">
-            <div class="ttt-cell" onclick="makeMove(0)"></div><div class="ttt-cell" onclick="makeMove(1)"></div><div class="ttt-cell" onclick="makeMove(2)"></div>
-            <div class="ttt-cell" onclick="makeMove(3)"></div><div class="ttt-cell" onclick="makeMove(4)"></div><div class="ttt-cell" onclick="makeMove(5)"></div>
-            <div class="ttt-cell" onclick="makeMove(6)"></div><div class="ttt-cell" onclick="makeMove(7)"></div><div class="ttt-cell" onclick="makeMove(8)"></div>
+            <div class="ttt-cell" onclick="handleMove(0)"></div>
+            <div class="ttt-cell" onclick="handleMove(1)"></div>
+            <div class="ttt-cell" onclick="handleMove(2)"></div>
+            <div class="ttt-cell" onclick="handleMove(3)"></div>
+            <div class="ttt-cell" onclick="handleMove(4)"></div>
+            <div class="ttt-cell" onclick="handleMove(5)"></div>
+            <div class="ttt-cell" onclick="handleMove(6)"></div>
+            <div class="ttt-cell" onclick="handleMove(7)"></div>
+            <div class="ttt-cell" onclick="handleMove(8)"></div>
         </div>
-        <p id="ttt-message" style="color: var(--soft-pink); font-size: 1.4rem; min-height: 70px; font-weight: 600;"></p>
+        <button class="btn btn-outline" onclick="resetTTT()">Reset</button>
+        <button class="btn btn-outline" onclick="show('hub')">Exit</button>
     </div>
 
-    <div id="win-image-page" class="section">
-        <div style="background: white; padding: 12px; border-radius: 15px; box-shadow: 0 0 40px var(--primary-love);">
-            <img src="win-image.png" style="width:100%; border-radius:5px;" onerror="this.src='https://via.placeholder.com/300x400?text=Forever+Yours'">
-        </div>
-        <button class="btn" id="yes-btn" style="margin-top:30px;" onclick="show('gift-page')">BACK TO GIFTS</button>
+    <div id="coupons" class="section">
+        <h1 class="fancy-title">Redeemables</h1>
+        <div style="background:white; color:black; padding:10px; margin:5px; border-radius:5px; border:2px dashed red;">🎟️ 1x Cuddle Session</div>
+        <div style="background:white; color:black; padding:10px; margin:5px; border-radius:5px; border:2px dashed red;">🎟️ 1x No-Argument Pass</div>
+        <div style="background:white; color:black; padding:10px; margin:5px; border-radius:5px; border:2px dashed red;">🎟️ 1x Favorite Lunch</div>
+        <div style="background:white; color:black; padding:10px; margin:5px; border-radius:5px; border:2px dashed red;">🎟️ 1x Scooter Ride</div>
+        <button class="btn" onclick="show('hub')" style="margin-top:20px">Back</button>
     </div>
 
-    <div id="final-message-screen" class="section"><h1 class="fancy-title">Now that you're stuck with me forever...</h1></div>
-    <div id="scrapboard-screen"></div>
-
-    <div id="video-teaser" class="section"><h1 class="fancy-title">I made a video just for you...</h1></div>
-    <div id="video-container">
-        <video id="myVideo" controls playsinline><source src="your-video.mp4" type="video/mp4"></video>
-        <button class="btn" style="margin-top:25px; background:white; color:black;" onclick="closeVideo()">CLOSE SURPRISE</button>
+    <div id="gallery" class="section">
+        <h1 class="fancy-title">Our Gallery</h1>
+        <div class="gallery-container">
+            <img src="image1.jpeg" class="gallery-img" alt="1">
+            <img src="image2.jpeg" class="gallery-img" alt="2">
+            <img src="image3.jpeg" class="gallery-img" alt="3">
+            <img src="image4.jpeg" class="gallery-img" alt="4">
+            <img src="image5.jpeg" class="gallery-img" alt="5">
+            <img src="image6.jpeg" class="gallery-img" alt="6">
+            <img src="image7.jpeg" class="gallery-img" alt="7">
+            <img src="image8.jpeg" class="gallery-img" alt="8">
+        </div>
+        <button class="btn btn-outline" onclick="show('hub')" style="margin-top:20px">Back</button>
     </div>
 
     <script>
-        const audio = document.getElementById('bg-music');
-
         function show(id) {
-            const sections = document.querySelectorAll('.section, #scrapboard-screen, #video-container');
-            sections.forEach(s => { 
+            document.querySelectorAll('.section').forEach(s => {
                 s.classList.remove('section-active');
-                setTimeout(() => { if(!s.classList.contains('section-active')) s.style.display = 'none'; }, 600);
+                setTimeout(() => s.style.display = 'none', 450);
             });
-            const el = document.getElementById(id);
-            el.style.display = (id === 'scrapboard-screen' || id === 'video-container') ? 'flex' : 'block';
-            setTimeout(() => { el.classList.add('section-active'); }, 50);
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                el.style.display = 'block';
+                setTimeout(() => el.classList.add('section-active'), 50);
+            }, 500);
         }
 
-        function finalSuccess() {
+        function dodgeNo() {
+            const b = document.getElementById('no-btn');
+            b.style.position = 'fixed';
+            b.style.left = Math.random() * 80 + '%';
+            b.style.top = Math.random() * 80 + '%';
+        }
+
+        function celebrate() {
             document.body.classList.add('romantic-body');
-            audio.play().catch(() => {});
-            startHeartShower();
-            show('success-screen');
-            setTimeout(() => { show('gift-page'); animateGiftText(); }, 2500);
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.className = 'heart-particle';
+                h.innerHTML = ['❤️','💖','🌸','✨'][Math.floor(Math.random()*4)];
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDuration = Math.random() * 2 + 3 + 's';
+                document.getElementById('shower-layer').appendChild(h);
+                setTimeout(() => h.remove(), 4000);
+            }, 350);
+            show('hub');
         }
 
-        function animateGiftText() {
-            const text = "I made some things for you...";
-            const el = document.getElementById('gift-text');
-            el.innerText = ""; let i = 0;
-            const interval = setInterval(() => { el.innerText += text[i]; i++; if (i >= text.length) clearInterval(interval); }, 65);
-        }
-
-        let b = ["","","","","","","","",""];
-        let active = true;
-        function resetTTT() { b = ["","","","","","","","",""]; active = true; document.querySelectorAll('.ttt-cell').forEach(c => c.innerText = ""); document.getElementById('ttt-message').innerText = ""; show('ttt-page'); }
-        
-        function makeMove(i) {
-            if(b[i]==="" && active) {
-                b[i]="❤️"; document.getElementsByClassName('ttt-cell')[i].innerText="❤️";
-                if(checkWin("❤️")) {
-                    active = false;
-                    const m = document.getElementById('ttt-message');
-                    m.innerText = "You won...";
-                    setTimeout(() => { m.innerHTML = "You won...<br>My Heart ❤️"; setTimeout(() => show('win-image-page'), 2000); }, 2000);
-                } else {
-                    let e = b.indexOf(""); if(e!==-1) { active = false; setTimeout(() => { b[e]="X"; document.getElementsByClassName('ttt-cell')[e].innerText="X"; active = true; }, 400); }
+        // Slot Machine
+        const slotOptions = ["❤️", "💖", "💕", "✨", "👑", "🌹"];
+        const loveMsgs = ["I love you babyyy!", "My Sweet strong girl!", "Mwuahhhhh", "Chikkiiiii", "You are my everything!", "Nan Hendathi <3", "My Munchiiii", "Jannu loves you sooooo much!"];
+        function spinSlots() {
+            const slot = document.getElementById('slot-machine');
+            let count = 0;
+            const interval = setInterval(() => {
+                slot.innerText = `${slotOptions[Math.floor(Math.random()*6)]} | ${slotOptions[Math.floor(Math.random()*6)]} | ${slotOptions[Math.floor(Math.random()*6)]}`;
+                count++;
+                if(count > 10) {
+                    clearInterval(interval);
+                    document.getElementById('slot-msg').innerText = loveMsgs[Math.floor(Math.random()*loveMsgs.length)];
                 }
+            }, 100);
+        }
+
+        // Challenges
+        const tasks = ["Send Kushal a cute selfie.", "Tell Kushal one thing you love about him.", "Give Kushal a virtual kiss.", "Hug your pillow and pretend it's Kushal.", "Hug Kushal.", "Text Kushal a random emoji that describes your mood.", "Write a short love note for Kushal.", "Do a little dance for Kushal.", "Whisper 'I love you' to yourself thinking of Kushal.", "Text Kushal 'I Love you' right now!", "Share a memory with Kushal that makes you smile.", "Draw a heart and send it to Kushal.", "Compliment Kushal on something new today.", "Plan a surprise for Kushal.", "Tell Kushal your favorite thing about him."];
+        function newChallenge() {
+            document.getElementById('challenge-text').innerText = tasks[Math.floor(Math.random()*tasks.length)];
+        }
+        newChallenge();
+
+        // --- Tic Tac Toe Fixed Logic ---
+        let board = ["","","","","","","","",""];
+        let active = true;
+        function resetTTT() {
+            board = ["","","","","","","","",""]; active = true;
+            document.querySelectorAll('.ttt-cell').forEach(c => c.innerText = "");
+            document.getElementById('ttt-status').innerText = "Your turn (❤️)";
+            show('ttt');
+        }
+        function handleMove(i) {
+            if(board[i] === "" && active) {
+                board[i] = "❤️";
+                document.querySelectorAll('.ttt-cell')[i].innerText = "❤️";
+                if(checkWin("❤️")) { document.getElementById('ttt-status').innerText = "You Win My Heart! ❤️"; active = false; return; }
+                active = false;
+                setTimeout(aiPlay, 500);
             }
         }
-        function checkWin(p) { const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return w.some(pattern => pattern.every(idx => b[idx] === p)); }
-
-        function triggerMemoryLane() { show('final-message-screen'); setTimeout(startScrapboard, 2500); }
-        function startScrapboard() {
-            const sb = document.getElementById('scrapboard-screen');
-            sb.innerHTML = ""; sb.style.display = 'flex'; sb.classList.add('section-active');
-            const imgs = ["image1.jpeg", "image2.jpeg", "image3.jpeg", "image4.jpeg", "image5.jpeg", "image6.jpeg"];
-            imgs.forEach((img, i) => { 
-                setTimeout(() => { 
-                    const d = document.createElement('div'); 
-                    d.className = 'memory-card'; 
-                    d.style.setProperty('--r', (Math.random()*16-8) + 'deg'); 
-                    d.innerHTML = `<img src="${img}" onerror="this.src='https://via.placeholder.com/200x250?text=Memory'">`; 
-                    sb.appendChild(d); 
-                    setTimeout(() => d.classList.add('reveal'), 50); 
-                }, i * 450); 
-            });
-            setTimeout(() => { 
-                const btn = document.createElement('button'); 
-                btn.className = 'btn'; btn.innerText = "BACK TO GIFTS ❤️"; 
-                btn.style.cssText = "margin: 50px auto; display: block; background: white; color: var(--primary-love); z-index: 300;"; 
-                btn.onclick = () => show('gift-page'); 
-                sb.appendChild(btn); 
-            }, (imgs.length * 450) + 1200);
+        function aiPlay() {
+            let empty = board.map((v,i) => v===""?i:null).filter(v=>v!==null);
+            if(empty.length > 0) {
+                let choice = empty[Math.floor(Math.random()*empty.length)];
+                board[choice] = "O";
+                document.querySelectorAll('.ttt-cell')[choice].innerText = "O";
+                if(checkWin("O")) { document.getElementById('ttt-status').innerText = "I Win! (Reward: 1 Kiss)"; }
+                else { active = true; }
+            }
         }
-
-        function triggerVideoTease() { show('video-teaser'); setTimeout(() => { audio.pause(); show('video-container'); document.getElementById('myVideo').play(); }, 3000); }
-        function closeVideo() { document.getElementById('myVideo').pause(); audio.play(); show('gift-page'); }
-
-        function startHeartShower() { 
-            setInterval(() => { 
-                const h = document.createElement('div'); 
-                h.className = 'heart-particle'; h.innerText = ['❤️','💖','💕','✨'][Math.floor(Math.random()*4)]; 
-                h.style.left = Math.random()*100+'vw'; 
-                h.style.animationDuration = Math.random()*2+3+'s'; 
-                document.getElementById('shower-layer').appendChild(h); 
-                setTimeout(() => h.remove(), 5000); 
-            }, 350); 
+        function checkWin(p) {
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return wins.some(w => w.every(idx => board[idx] === p));
         }
     </script>
 </body>
