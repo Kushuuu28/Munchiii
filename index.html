@@ -221,7 +221,7 @@
 
         // Slot Machine
         const slotOptions = ["❤️", "💖", "💕", "✨", "👑", "🌹"];
-        const loveMsgs = ["I love you babyyy!", "My Sweet strong girl!", "Mwuahhhhh", "Chikkiiiii", "You are my everything!", "Nan Hendathi <3", "My Munchiiii", "Jannu loves you sooooo much!", "My Kuchupuchuuuu", "My princess", "My Darling"];
+        const loveMsgs = ["I love you babyyy!", "My Sweet strong girl!", "Mwuahhhhh", "Chikkiiiii", "You are my everything!", "Nan Hendathi <3", "My Munchiiii", "Jannu loves you sooooo much!", "My Kuchupuchuuuu", "My princess", "My Darling", "Marry me", "I'll never leave you", "You are my world", "I can't live without you", "My heart beats for you", "You complete me", "Forever yours", "My soulmate", "I adore you", "You are my sunshine", "My love for you is endless", "I'm the most luckiest boy cuz I have my Munchiiii", "I'm so proud to be your boy"];
         function spinSlots() {
             const slot = document.getElementById('slot-machine');
             let count = 0;
@@ -236,7 +236,7 @@
         }
 
         // Challenges
-        const tasks = ["Send Kushal a cute selfie.", "Tell Kushal one thing you love about him.", "Give Kushal a virtual kiss.", "Hug your pillow and pretend it's Kushal.", "Hug Kushal.", "Text Kushal a random emoji that describes your mood.", "Write a short love note for Kushal.", "Do a little dance for Kushal.", "Whisper 'I love you' to yourself thinking of Kushal.", "Text Kushal 'I Love you' right now!", "Share a memory with Kushal that makes you smile.", "Draw a heart and send it to Kushal.", "Compliment Kushal on something new today.", "Plan a surprise for Kushal.", "Tell Kushal your favorite thing about him.", "Tell Kushal of yoour secret dark fantasies", "Tease Kushal"];
+        const tasks = ["Send Kushal a cute selfie.", "Tell Kushal one thing you love about him.", "Give Kushal a virtual kiss.", "Hug your pillow and pretend it's Kushal.", "Hug Kushal.", "Text Kushal a random emoji that describes your mood.", "Write a short love note for Kushal.", "Do a little dance for Kushal.", "Whisper 'I love you' to yourself thinking of Kushal.", "Text Kushal 'I Love you' right now!", "Share a memory with Kushal that makes you smile.", "Draw a heart and send it to Kushal.", "Compliment Kushal on something new today.", "Plan a surprise for Kushal.", "Tell Kushal your favorite thing about him.", "Tell Kushal one of your secret dark fantasies", "Tease Kushal", "Send Kushal a voice note saying smtg spicy", "Turn on Kushal by teasing him", "Send a voice note by saying 'Kushal' in a Seductive way", "Drop a random spicy pickup line"];
         function newChallenge() {
             document.getElementById('challenge-text').innerText = tasks[Math.floor(Math.random()*tasks.length)];
         }
@@ -255,7 +255,7 @@
             if(board[i] === "" && active) {
                 board[i] = "❤️";
                 document.querySelectorAll('.ttt-cell')[i].innerText = "❤️";
-                if(checkWin("❤️")) { document.getElementById('ttt-status').innerText = "You Win My Heart! ❤️"; active = false; return; }
+                if(checkWin("❤️")) { document.getElementById('ttt-status').innerText = "Send a screenshot of this and ask me for anything ❤️"; active = false; return; }
                 active = false;
                 setTimeout(aiPlay, 500);
             }
