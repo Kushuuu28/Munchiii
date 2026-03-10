@@ -111,6 +111,8 @@
             <div class="stat-row"><span>Love Level:</span> <span style="color:var(--primary-love)">MAX (∞)</span></div>
             <div class="stat-row"><span>Hugs Owed:</span> <span>99,999+</span></div>
             <div class="stat-row"><span>Mood:</span> <span>Thinking of You</span></div>
+            <div class="stat-row"><span>Anniversary:</span> <span id="anniversary-date"></span></div>
+            <div class="stat-row"><span>Together For:</span> <span id="love-timer"></span></div>
         </div>
 
         <div id="gift-grid">
@@ -272,6 +274,27 @@
             const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
             return wins.some(w => w.every(idx => board[idx] === p));
         }
+        // Anniversary Timer
+        const anniversary = new Date("2025-09-10T00:00:00"); // CHANGE TO YOUR DATE
+
+        function updateLoveTimer() {
+            const now = new Date();
+            const diff = now - anniversary;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("love-timer").innerText =
+                `${days} days ${hours}h ${minutes}m ${seconds}s`;
+
+            document.getElementById("anniversary-date").innerText =
+                anniversary.toDateString();
+        }
+
+        setInterval(updateLoveTimer, 1000);
+        updateLoveTimer();
     </script>
 </body>
 </html>
